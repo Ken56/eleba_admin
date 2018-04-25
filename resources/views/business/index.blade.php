@@ -19,7 +19,7 @@
             <td>
                 <a href="{{route('category.edit',['category'=>$category])}}" class="btn btn-warning">修改</a>
                 {{--<a href="{{route('delete',['category'=>$category])}}" class="btn btn-danger">删除</a>--}}
-                <button class="btn btn-danger" >删除</button>
+                {{--<button class="btn btn-danger" >删除</button>--}}
             </td>
         </tr>
         @endforeach

@@ -17,12 +17,13 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="{{route('shop.index')}}"><span class="glyphicon glyphicon-tint
+                <li><a href="{{route('shop.index')}}"><span class="
+glyphicon glyphicon-home
 "></span>商家管理</a></li>
                 <li class="dropdown">
-                <li><a href=""><span class="glyphicon glyphicon-tint
+                <li><a href="{{route('category.index')}}"><span class="glyphicon glyphicon-th
 "></span>分类管理</a></li>
-                <li class="active"><a href=""><span class="glyphicon glyphicon-star-empty"></span>消费记录 <span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="{{route('activity.index')}}"><span class="glyphicon glyphicon-heart"></span>活动管理 <span class="sr-only">(current)</span></a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-time
 "></span>时间 <span class="caret"></span></a>

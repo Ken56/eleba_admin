@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    //登录权限
+    public function __construct(){
+        //未登录的用户只能做什么
+        $this->middleware('auth',['except'=>['']]);
+        //让只能是未登录的用户访问的页面
+//        $this->middleware('guest',['only' => ['create']]);
+    }
     //商家分类管理
     public function index(Request $request){
         $fenye=$request->query();
