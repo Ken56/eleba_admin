@@ -38,6 +38,51 @@ class ShopController extends Controller
         return view('shop.show',compact('shop'));
     }
 
+    //后台添加
+    public function create(){
+        $categorys=DB::table('categories')->get();
+        return view('shop.create',compact('categorys'));
+    }
+
+    //商家注册首页
+    public function store(Request $request){
+        //验证
+        $this->validate($request,[
+            'name'=>'required',
+        ]);
+
+        //保存到两个数据库
+        DB::transaction(function ()use ($request) {
+
+            //添加到详细表
+            $keyx=Shop::create([
+                'shop_name'=>$request->shop_name,
+                'category_id'=>$request->category_id,
+                'start_send'=>$request->start_send,
+                'send_cost'=>$request->send_cost,
+                'on_time'=>$request->on_time,
+                'fengniao'=>$request->fengniao,
+                'shop_img'=>$request->img,
+                'notice'=>$request->notice,
+                'discount'=>$request->discount,
+            ]);
+
+            //添加数据商家账户表
+            User::create([
+                'name'=>$request->name,
+                'phone'=>$request->phone,
+                'password'=>bcrypt($request->password),
+                'status'=>1,
+                'shop_id'=>$keyx->id,
+            ]);
+
+
+        });
+        session()->flash('success','添加成功');
+        return redirect()->route('shop.index');
+    }
+
+
     //审核
     public function status(User $shop){
         $res=$shop->status==1?0:1;

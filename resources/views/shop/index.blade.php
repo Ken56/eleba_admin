@@ -3,7 +3,7 @@
 @section('content')
     <table class="table table-bordered container-fluid" style="text-align: center" id="jsx">
         <tr>
-            <td><a href="" class="btn btn-info">添加</a></td>
+            <td><a href="{{route('shop.create')}}" class="btn btn-info">添加</a></td>
         </tr>
         <tr>
             <td>ID</td>

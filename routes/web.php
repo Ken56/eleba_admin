@@ -37,3 +37,5 @@ Route::get('updatepwd', 'AdminController@updatepwd')->name('updatepwd');
 Route::post('updatepwd_save', 'AdminController@update_pwd')->name('updatepwd_save');
 //>>平台活动管理
 Route::resource('/activity','ActivityController');
+//================>>商家专用图片上传
+Route::post('/upload','UploaderController@upload');

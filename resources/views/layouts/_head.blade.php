@@ -23,7 +23,7 @@ glyphicon glyphicon-home
                 <li class="dropdown">
                 <li><a href="{{route('category.index')}}"><span class="glyphicon glyphicon-th
 "></span>分类管理</a></li>
-                <li class="active"><a href="{{route('activity.index')}}"><span class="glyphicon glyphicon-heart"></span>活动管理 <span class="sr-only">(current)</span></a></li>
+                <li class=""><a href="{{route('activity.index')}}"><span class="glyphicon glyphicon-heart"></span>活动管理 <span class="sr-only">(current)</span></a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-time
 "></span>时间 <span class="caret"></span></a>
