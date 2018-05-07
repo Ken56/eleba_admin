@@ -6,6 +6,7 @@ use App\Models\Shop;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class ShopController extends Controller
 {
@@ -52,7 +53,7 @@ class ShopController extends Controller
         ]);
 
         //保存到两个数据库
-        DB::transaction(function ()use ($request) {
+//        DB::transaction(function ()use ($request) {
 
             //添加到详细表
             $keyx=Shop::create([
@@ -62,11 +63,11 @@ class ShopController extends Controller
                 'send_cost'=>$request->send_cost,
                 'on_time'=>$request->on_time,
                 'fengniao'=>$request->fengniao,
-                'shop_img'=>$request->img,
+                'shop_img'=>$request->shop_img,
                 'notice'=>$request->notice,
                 'discount'=>$request->discount,
             ]);
-
+//                var_dump($keyx->id);die;
             //添加数据商家账户表
             User::create([
                 'name'=>$request->name,
@@ -77,19 +78,29 @@ class ShopController extends Controller
             ]);
 
 
-        });
+//        });
         session()->flash('success','添加成功');
         return redirect()->route('shop.index');
     }
 
 
-    //审核
+    //商家审核发邮箱
     public function status(User $shop){
         $res=$shop->status==1?0:1;
-//        var_dump($res);die;
+        if ($shop->status==0){//发送过来是0发送邮箱1099321358@qq.com祝海洋 商家审核通过 $shop->name 你的账号已经审核通过 欢迎入住我们的平台 欢迎入驻皇家赌场俱乐部
+            Mail::send(
+                'mail',//需要一个邮箱模板地址
+                ['name'=>$shop->name],//名字
+                function ($message) use ($shop){//subject是邮箱标题
+                    $message->to($shop->email)->subject('饿了吧账号审核通过');
+                }
+            );
+        }
+
         $shop->where('id',$shop->id)->update([
             'status'=>$res
         ]);
+
         return redirect()->route('shop.index');
     }
 }

@@ -22,7 +22,7 @@
             <td>{{date('Y-m-d',$activity->end)}}</td>
             <td>
                 <a href="{{route('activity.show',['activity'=>$activity])}}" class="btn btn-primary">查看</a>
-                <a href="{{route('activity.edit',['activity'=>$activity])}}" class="btn btn-warning">修改</a>
+                <a href="{{route('activity.edit',['activity'=>$activity])}}" class="btn btn-warning">编辑</a>
                 <button class="btn btn-danger" >删除</button>
             </td>
         </tr>

@@ -31,15 +31,14 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="form-group">
-                            <label for="xxx">验证码</label>
-                            <input id="captcha" class="form-control" name="captcha" placeholder="填写验证码">
-                            <br/>
-                            <img class="thumbnail captcha" src="{{ captcha_src('flat') }}" onclick="this.src='/captcha/flat?'+Math.random()" title="点击图片重新获取验证码">
-                        </div>
+                    <div class="checkbox">
+                        @foreach($roles as $role)
+                            <label>
+                                <input name="role_id[]" type="checkbox" value="{{$role->id}}">
+                                {{$role->display_name}}
+                            </label>
+                        @endforeach
                     </div>
-
 
                     <div class="row">
                         <input type="submit" value="提交">

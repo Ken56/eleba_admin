@@ -1,23 +1,29 @@
 @extends('layouts.default')
-@section('title','管理员中心')
+@section('title','菜单管理')
 @section('content')
     <div class="container-fluid">
         <table class="table table-bordered container-fluid" style="text-align: center" id="jsx">
             <tr>
-                <td><a href="{{route('admin.create')}}" class="btn btn-info">添加权限</a></td>
+                <td><a href="{{route('menu.create')}}" class="btn btn-info">添加菜单</a></td>
             </tr>
             <tr>
-                <td>管理员ID</td>
-                <td>管理员名称</td>
-                <td>邮箱</td>
+                <td>ID</td>
+                <td>菜单名称</td>
+                <td>上线删除父ID</td>
+                <td>父级菜单</td>
+                <td>路由</td>
+                <td>排序</td>
                 <td>操作</td>
             </tr>
-            @foreach($admins as $admin)
-            <tr data-id="{{ $admin->id }}">
-                <td>{{$admin->id}}</td>
-                <td>{{$admin->name}}</td>
-                <td>{{$admin->email}}</td>
-                <td><a href="{{route('updatepwd',['admin'=>$admin])}}" class="btn btn-warning">编辑</a>
+            @foreach($menuManagements as $menuManagement)
+            <tr data-id="{{ $menuManagement->id }}">
+                <td>{{$menuManagement->id}}</td>
+                <td>{{$menuManagement->name}}</td>
+                <td>{{$menuManagement->parent_id}}</td>
+                <td>{{$menuManagement->pid_name}}</td>
+                <td>{{$menuManagement->menu_route}}</td>
+                <td>{{$menuManagement->sorting}}</td>
+                <td><a href="{{route('menu.edit',compact('menuManagement'))}}" class="btn btn-warning">编辑</a>
                     <button class="btn btn-danger" >删除</button>
                 </td>
             </tr>
@@ -37,7 +43,7 @@
                 var id = tr.data('id');
                 $.ajax({
                     type: "DELETE",
-                    url: 'admin/'+id,
+                    url: 'menu/'+id,
                     data: '_token={{ csrf_token() }}',
                     success: function(msg){
                         tr.fadeOut();

@@ -1,23 +1,26 @@
 @extends('layouts.default')
-@section('title','管理员中心')
+@section('title','角色列表管理')
 @section('content')
     <div class="container-fluid">
         <table class="table table-bordered container-fluid" style="text-align: center" id="jsx">
             <tr>
-                <td><a href="{{route('admin.create')}}" class="btn btn-info">添加权限</a></td>
+                <td><a href="{{route('character.create')}}" class="btn btn-info">添加权限</a></td>
             </tr>
             <tr>
-                <td>管理员ID</td>
-                <td>管理员名称</td>
-                <td>邮箱</td>
+                <td>权限ID</td>
+                <td>名称</td>
+                <td>显示名称</td>
+                <td>描述</td>
                 <td>操作</td>
             </tr>
-            @foreach($admins as $admin)
-            <tr data-id="{{ $admin->id }}">
-                <td>{{$admin->id}}</td>
-                <td>{{$admin->name}}</td>
-                <td>{{$admin->email}}</td>
-                <td><a href="{{route('updatepwd',['admin'=>$admin])}}" class="btn btn-warning">编辑</a>
+            @foreach($characters as $character)
+            <tr data-id="{{ $character->id }}">
+                <td>{{$character->id}}</td>
+                <td>{{$character->name}}</td>
+                <td>{{$character->display_name}}</td>
+                <td>{{$character->description}}</td>
+                <td>
+                    <a href="{{route('character.edit',['character'=>$character])}}" class="btn btn-warning">编辑</a>
                     <button class="btn btn-danger" >删除</button>
                 </td>
             </tr>
@@ -37,7 +40,7 @@
                 var id = tr.data('id');
                 $.ajax({
                     type: "DELETE",
-                    url: 'admin/'+id,
+                    url: 'character/'+id,
                     data: '_token={{ csrf_token() }}',
                     success: function(msg){
                         tr.fadeOut();

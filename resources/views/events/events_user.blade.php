@@ -13,23 +13,22 @@
             <td>审核状态</td>
             <td>操作
         </tr>
-        @foreach($shops as $shop)
-        <tr data-id="{{ $shop->id }}">
-            <td>{{$shop->id}}</td>
-            <td>{{$shop->name}}</td>
-            <td>{{$shop->tel}}</td>
-            <td><a href="{{route('shop.show',['shop'=>$shop])}}">详情</a></td>
-            <td>{{$shop->status==1?'审核通过':'未审核通过'}}</td>
+        @foreach($eventsUser as $val)
+        <tr data-id="{{ $val->id }}">
+            <td>{{$val->id}}</td>
+            <td>{{$val->name}}</td>
+            <td>{{$val->tel}}</td>
+            <td><a href="{{route('shop.show',['shop'=>$val])}}">详情</a></td>
+            <td>{{$val->status==1?'审核通过':'未审核通过'}}</td>
             <td>
                 <a href="" class="btn btn-warning">修改</a>
                 {{--<a href="{{route('delete',['category'=>$category])}}" class="btn btn-danger">删除</a>--}}
                 <button class="btn btn-danger" >删除</button>
-                <a href="{{route('status',['shop'=>$shop])}}" class="btn btn-success">{{$shop->status==1?'审核不过':'审核通过'}}</a>
+                <a href="{{route('status',['shop'=>$shop])}}" class="btn btn-success">{{$val->status==1?'审核不过':'审核通过'}}</a>
             </td>
         </tr>
         @endforeach
     </table>
-    {{$shops->appends($fenye)->links()}}
 @stop()
 
 @section('js')
