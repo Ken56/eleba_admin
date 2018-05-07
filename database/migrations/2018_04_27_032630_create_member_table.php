@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateActivitiesTable extends Migration
+class CreateMemberTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateActivitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('activities', function (Blueprint $table) {
+        Schema::create('member', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title')->comment('活动标题');
-            $table->text('content')->comment('活动类容');
-            $table->integer('start')->comment('开始时间');
-            $table->integer('end')->comment('结束时间');
-            $table->integer('fabu')->comment('发布时间');
+            $table->string('username');
+            $table->string('password');
+            $table->string('tel');
             $table->engine='InnoDB';
+            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ class CreateActivitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('activities');
+        Schema::dropIfExists('member');
     }
 }
