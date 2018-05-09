@@ -45,7 +45,7 @@ class ShopController extends Controller
         return view('shop.create',compact('categorys'));
     }
 
-    //商家注册首页
+    //管理员 添加 商家
     public function store(Request $request){
         //验证
         $this->validate($request,[
@@ -53,7 +53,7 @@ class ShopController extends Controller
         ]);
 
         //保存到两个数据库
-//        DB::transaction(function ()use ($request) {
+        DB::transaction(function ()use ($request) {
 
             //添加到详细表
             $keyx=Shop::create([
@@ -67,18 +67,19 @@ class ShopController extends Controller
                 'notice'=>$request->notice,
                 'discount'=>$request->discount,
             ]);
-//                var_dump($keyx->id);die;
+
             //添加数据商家账户表
             User::create([
                 'name'=>$request->name,
-                'phone'=>$request->phone,
+                'tel'=>$request->tel,
+                'email'=>$request->email,
                 'password'=>bcrypt($request->password),
                 'status'=>1,
                 'shop_id'=>$keyx->id,
             ]);
 
 
-//        });
+        });
         session()->flash('success','添加成功');
         return redirect()->route('shop.index');
     }

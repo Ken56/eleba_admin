@@ -8,19 +8,25 @@
                 <div class="col-lg-10">
                     <div class="row">
                         <div class="form-group">
-                            <label for="kk">商家名称</label>
-                            <input type="text" name="name" value="{{old('name')}}" class="form-control" id="kk" placeholder="填写商家名称">
+                            <label for="kk">商户昵称</label>
+                            <input type="text" name="name" value="{{old('name')}}" class="form-control" id="kk" placeholder="商户昵称">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
                             <label for="kk">手机号码</label>
-                            <input type="text" name="phone" value="{{old('phone')}}" class="form-control" id="kk" placeholder="填写商家名称">
+                            <input type="number" name="tel" value="{{old('tel')}}" class="form-control" id="kk" placeholder="手机号码">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
-                            <label for="kk">密码</label>
+                            <label for="kk">填写邮箱</label>
+                            <input type="text" name="email" value="{{old('email')}}" class="form-control" id="kk" placeholder="填写邮箱">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="kk">填写密码</label>
                             <input type="text" name="password" value="{{old('password')}}" class="form-control" id="kk" placeholder="填写商家名称">
                         </div>
                     </div>
@@ -43,13 +49,13 @@
                     <div class="row">
                         <div class="form-group">
                             <label for="kk">起送金额</label>
-                            <input type="text" name="start_send" value="{{old('start_send')}}" class="form-control" id="kk" placeholder="填写商家名称">
+                            <input type="text" name="start_send" value="50" class="form-control" id="kk" placeholder="填写商家名称">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
                             <label for="kk">配送金额</label>
-                            <input type="text" name="send_cost" value="{{old('send_cost')}}" class="form-control" id="kk" placeholder="填写商家名称">
+                            <input type="text" name="send_cost" value="60" class="form-control" id="kk" placeholder="填写商家名称">
                         </div>
                     </div>
                     <div class="row">
@@ -86,13 +92,13 @@
                     <div class="row">
                         <div class="form-group">
                             <label for="kk">店铺公告</label>
-                            <textarea class="form-control" rows="3" name="notice">{{old('notice')}}</textarea>
+                            <textarea class="form-control" rows="3" name="notice">请填写店铺公告</textarea>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
                             <label for="kk">优惠信息</label>
-                            <textarea class="form-control" rows="3" name="discount">{{old('discount')}}</textarea>
+                            <textarea class="form-control" rows="3" name="discount">请填写优惠信息</textarea>
                         </div>
                     </div>
                     <div class="row">

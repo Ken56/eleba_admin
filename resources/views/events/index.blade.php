@@ -28,8 +28,8 @@
                 <a href="{{route('events.show',['event'=>$event])}}" class="btn btn-primary">查看详情</a>
                 <a href="{{route('eventsUser',['event'=>$event])}}" class="btn btn-primary">查看报名人</a>
                 <a href="{{route('events.edit',['event'=>$event])}}" class="btn btn-warning">编辑</a>
-                <a href="" class="btn btn-primary">添加奖品</a>
-                <a href="{{route('events_kaijiang',['event'=>$event])}}" class="btn btn-primary">开奖</a>
+                <a href="{{route('prize.create')}}" class="btn btn-primary">添加奖品</a>
+                <a  {{$event->is_prize==1?'disabled':''}} href="{{route('events_kaijiang',['event'=>$event])}}" class="btn btn-primary">开奖</a>
                 <button class="btn btn-danger" >删除</button>
             </td>
         </tr>

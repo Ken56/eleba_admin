@@ -14,11 +14,12 @@ class CreateEnevtPrizeTable extends Migration
     public function up()
     {
         Schema::create('enevt_prize', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('name')->comment('奖品名称');
             $table->text('description')->comment('奖品详情');
             $table->string('member_id')->default('')->comment('中奖商家账号id');
             $table->integer('events_id')->unsigned();
-            $table->foreign('events_id')->references('id')->on('activities');
+            $table->foreign('events_id')->references('id')->on('events');
             $table->engine='InnoDB';
             $table->timestamps();
         });

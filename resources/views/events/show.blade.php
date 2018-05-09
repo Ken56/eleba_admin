@@ -3,7 +3,6 @@
 @section('content')
 
     <div class="container">
-        <div class="col-lg-2"></div>
         <div class="col-lg-8">
 
 
@@ -38,7 +37,29 @@
         </div>
 
 
-        <div class="col-lg-2"></div>
+        <div class="col-lg-4">
+            @foreach($prizes as $prize)
+                <div>
+                    <h3>奖品名字</h3>
+                    <h4>{{$prize->name}}</h4>
+                </div>
+                <div>
+                    <h3>奖品详情</h3>
+                    <h4>{{$prize->description}}</h4>
+                    <br>
+                    <a href="{{route('prize.edit',['prize'=>$prize])}}" class="btn btn-warning">编辑</a>
+                    <br>
+                    <br>
+                    <form action="{{route('prize.destroy',['prize'=>$prize])}}" method="POST">
+                        <button class="btn btn-danger" >删除</button>
+                        {{csrf_field()}}
+                        {{method_field('DELETE')}}
+                    </form>
+
+                </div>
+            @endforeach
+
+        </div>
     </div>
 
 @stop()
@@ -52,7 +73,7 @@
                 var id = tr.data('id');
                 $.ajax({
                     type: "DELETE",
-                    url: 'shop/'+id,
+                    url: 'prize/'+id,
                     data: '_token={{ csrf_token() }}',
                     success: function(msg){
                         tr.fadeOut();

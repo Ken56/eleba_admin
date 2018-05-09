@@ -2,7 +2,9 @@
 //抽奖活动管理
 namespace App\Http\Controllers;
 
+use App\Models\Event_Members;
 use App\Models\Events;
+use App\Models\Prize;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -18,9 +20,14 @@ class EventsController extends Controller
 
     //查看抽奖详情
     public function show(Events $event){
-        //找到所有报名人数---判断限制人数
+
+        //显示参与人数
         $man_count=DB::table('event_members')->where(['events_id'=>$event->id])->count();
-        return view('events.show',compact('event','man_count'));
+
+        //显示奖品
+        $prizes=Prize::where('events_id',$event->id)->get();
+
+        return view('events.show',compact('event','man_count','prizes'));
     }
 
     //添加商品分类-显示
@@ -67,12 +74,48 @@ class EventsController extends Controller
         return view('events.edit',compact('event'));
     }
 
-    //>>抽奖开奖
+    //>>抽奖开奖=========重要
     public function kaijiang(Events $event){
-        $is_prize=$event->is_prize==0?1:0;
-        $event->update([
-           'is_prize'=>$is_prize
-        ]);
+
+        if(strtotime($event->prize_date) < time()){//开奖时间未到不能开奖
+            session()->flash('success','开奖时间未到');
+            return redirect()->route('events.index');
+        }
+
+        //找到所有报名人员
+        $members=DB::table('event_members')->where('events_id',$event->id)->pluck('member_id')->shuffle();
+        //找到所有奖品
+        $prize=DB::table('enevt_prize')->where('events_id',$event->id)->pluck('id')->shuffle();
+
+        //开始抽奖分配奖品
+        $result=[];//保存抽奖结果
+        foreach ($members as $member_id){
+            $prize_id=$prize->pop();//从奖品数组中弹出一个奖品id
+            if($prize==null) break;//当奖品取完时终止循环
+            $result[$prize_id]=$member_id;
+        }
+
+        //将结果保存到数据库
+        DB::transaction(function () use ($result,$event){
+            foreach ( $result as $p_id=>$m_id){
+                DB::table('enevt_prize')
+                    ->where('id',$p_id)
+                    ->update([
+                        'member_id'=>$m_id,
+                    ]);
+            }
+
+            //修改开奖状态为已开奖
+//            $is_prize=$event->is_prize==1;
+//            $event->update([
+//                'is_prize'=>$is_prize
+//            ]);
+
+            $event->is_prize=1;
+            $event->save();
+            session()->flash('success','开奖成功');
+        });
+
 
         //返回数据
         return redirect()->route('events.index');
@@ -121,13 +164,11 @@ class EventsController extends Controller
 
     //查看报名商家账号
     public function eventsUser(Events $event){
-        $events=DB::table('event_members')->where('events_id',$event->id)->get();
-        var_dump($events);die;
-        foreach ($events as $val){
-            $eventsUser=DB::table('user')->where('id',$val->member_id)->get();
-        }
-
+        $eventsUser=Event_Members::where('events_id',$event->id)->get();
+//        var_dump($events);die;
         return view('events.events_user',compact('eventsUser'));
     }
+
+
 
 }

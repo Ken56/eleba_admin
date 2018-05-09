@@ -58,7 +58,8 @@ Route::resource('menu','MenuManagementController')->middleware('role:superadmin|
 Route::resource('events','EventsController')->middleware('role:superadmin|admin');
 //抽奖开奖
 Route::get('events/{event}/kaijiang','EventsController@kaijiang')->name('events_kaijiang');
-//抽奖报名管理[可以查看报名的账号列表]
-Route::resource('prize','EventsController')->middleware('role:superadmin|admin');
+
 //抽奖报名者账号
 Route::get('events/{event}/eventsUser','EventsController@eventsUser')->name('eventsUser');
+//奖品增删查改
+Route::resource('prize','PrizeController')->middleware('role:superadmin|admin');
