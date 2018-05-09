@@ -38,7 +38,7 @@
                     <a href="#"  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{\Illuminate\Support\Facades\Auth::user()->name}} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li data-toggle="modal" data-target="#login" id="login_name">
-                            <a href="">修改密码</a>
+                            <a href="{{route('updatepwd',['admin'=>\Illuminate\Support\Facades\Auth::user()])}}">修改密码</a>
                         </li>
                         <li data-toggle="modal" data-target="#login" id="login_name">
                             <form action="{{route('logout')}}" method="post">

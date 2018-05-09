@@ -5,14 +5,14 @@
    <div class="container">
        <div class="col-xs-6">
            <div class="form-group">
-               <label for="xxx">商品名称</label>
-               <input type="text" name="shop_name" class="form-control" id="xxx" placeholder="Email" readonly value="{{$shop->shop_name}}">
+               <label for="xxx">店铺图片</label><br>
+               <img src="{{$shop->shop_img}}" alt="" width="100px;">
            </div>
        </div>
        <div class="col-xs-6">
            <div class="form-group">
-               <label for="xxx">图片</label>
-               <input type="text" name="shop_name" class="form-control" id="xxx" placeholder="Email">
+               <label for="xxx">商品名称</label>
+               <input type="text" name="shop_name" class="form-control" id="xxx" placeholder="Email" readonly value="{{$shop->shop_name}}">
            </div>
        </div>
        <div class="col-xs-6">
@@ -93,7 +93,8 @@
                <input type="text" name="shop_rating" class="form-control" id="xxx" placeholder="Email" readonly value="{{$shop->category->name}}">
            </div>
        </div>
-
+       <a href="{{route('shop.edit',['shop'=>$shop])}}" class="btn btn-warning">修改</a>
+       <a href="{{route('shop.index')}}" class="btn btn-primary">返回页面</a>
 
    </div>
 @stop()

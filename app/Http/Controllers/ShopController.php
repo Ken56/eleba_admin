@@ -21,15 +21,9 @@ class ShopController extends Controller
 
     //商家账号管理
     public function index(Request $request){
-        $fenye=$request->query();
-        $keyword=$request->query();
-        if($keyword){
-            $shops=User::where('name','like',"%{$keyword}%")->paginate(4);
-        }else{
             //查询数据
             $shops=User::paginate(4);
-        }
-        return view('shop.index',compact('shops','fenye'));
+        return view('shop.index',compact('shops'));
     }
 
     //店铺详情页
@@ -104,4 +98,43 @@ class ShopController extends Controller
 
         return redirect()->route('shop.index');
     }
+    //修改店铺信息
+    public function edit(Shop $shop){
+        $categorys=DB::table('categories')->get();
+        return view('shop.edit',compact('shop','categorys'));
+    }
+//修改店铺信息
+    public function update(Request$request,Shop $shop){
+//        var_dump($shop);die;
+        //验证
+        $this->validate($request,[
+            'shop_name'=>'required',
+        ],[
+            'shop_name.required'=>'店铺名称不能为空',
+        ]);
+
+        //保存到两个数据库
+
+            //添加到详细表
+            $shop->update([
+                'shop_name'=>$request->shop_name,
+                'shop_rating'=>$request->shop_rating,
+                'brand'=>$request->brand,
+                'on_time'=>$request->on_time,
+                'fengniao'=>$request->fengniao,
+                'bao'=>$request->bao,
+                'piao'=>$request->piao,
+                'zhun'=>$request->zhun,
+                'start_send'=>$request->start_send,
+                'send_cost'=>$request->send_cost,
+                'estimate_time'=>$request->estimate_time,
+                'notice'=>$request->notice,
+                'discount'=>$request->discount,
+                'category_id'=>$request->category_id,
+            ]);
+
+        session()->flash('success','修改成功');
+        return redirect()->route('shop.index');
+    }
+
 }

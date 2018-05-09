@@ -18,7 +18,7 @@
             <td>{{$shop->id}}</td>
             <td>{{$shop->name}}</td>
             <td>{{$shop->tel}}</td>
-            <td><a href="{{route('shop.show',['shop'=>$shop])}}">详情</a></td>
+            <td><a class="btn btn-primary" href="{{route('shop.show',['shop'=>$shop])}}">点击查看</a></td>
             <td>{{$shop->status==1?'审核通过':'未审核通过'}}</td>
             <td>
                 <a href="" class="btn btn-warning">修改</a>
@@ -29,7 +29,7 @@
         </tr>
         @endforeach
     </table>
-    {{$shops->appends($fenye)->links()}}
+    {{$shops->links()}}
 @stop()
 
 @section('js')

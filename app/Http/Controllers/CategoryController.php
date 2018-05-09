@@ -96,6 +96,7 @@ class CategoryController extends Controller
 
     //>>删除数据
     public function destroy (Category $category){
+        //写个条件
         $category->delete();
     }
 

@@ -34,8 +34,8 @@ Route::delete('logout', 'SessionsController@destroy')->name('logout');
 Route::resource('/admin','AdminController');
 //>>管理员修改密码
 //shop/{shop}/edit
-Route::get('admin/{admin}/updatepwd', 'AdminController@updatepwd')->name('updatepwd');
-Route::post('admin/{admin}', 'AdminController@update_pwd')->name('updatepwd_save');
+Route::get('admin/{admin}/updatepwd','AdminController@updatepwd')->name('updatepwd');
+Route::post('admin/{admin}','AdminController@update_pwd')->name('updatepwd_save');
 //>>平台活动管理
 Route::resource('/activity','ActivityController')->middleware('role:superadmin|admin');
 //================>>商家专用图片上传
