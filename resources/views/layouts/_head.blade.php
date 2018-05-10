@@ -28,7 +28,7 @@
             {{--</form>--}}
             <ul class="nav navbar-nav navbar-right">
                 @guest
-                <li><a href="{{route('admin.create')}}">管理员注册</a></li>
+                {{--<li><a href="{{route('admin.create')}}">管理员注册</a></li>--}}
                 <li><a href="{{route('login')}}">登录</a></li>
                 @endguest
                 @auth

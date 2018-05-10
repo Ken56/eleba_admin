@@ -4,6 +4,16 @@
     <table class="table table-bordered container-fluid" style="text-align: center" id="jsx">
         <tr>
             <td><a href="{{route('shop.create')}}" class="btn btn-info">添加</a></td>
+            <td>
+
+                <form class="navbar-form " action="{{route('shop.index')}}" method="GET">
+                    <div class="form-group">
+                        <input type="text" name="keywords" class="form-control" id="" placeholder="输入搜索词">
+                    </div>
+                    <button type="submit" class="btn btn-default">搜索</button>
+                </form>
+
+            </td>
         </tr>
         <tr>
             <td>ID</td>

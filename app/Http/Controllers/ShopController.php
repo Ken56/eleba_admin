@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Shop;
+use App\Models\Users;
+use App\SphinxClient;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,8 +23,42 @@ class ShopController extends Controller
 
     //商家账号管理
     public function index(Request $request){
-            //查询数据
+//        var_dump($request->keywords);
+
+        if($request->keywords){//
+
+            //>>中文分词查询
+            $cl = new SphinxClient();
+            $cl->SetServer ( '127.0.0.1', 9312);
+//$cl->SetServer ( '10.6.0.6', 9312);
+//$cl->SetServer ( '10.6.0.22', 9312);
+//$cl->SetServer ( '10.8.8.2', 9312);
+            $cl->SetConnectTimeout ( 10 );
+            $cl->SetArrayResult ( true );
+// $cl->SetMatchMode ( SPH_MATCH_ANY);
+            $cl->SetMatchMode ( SPH_MATCH_EXTENDED2);
+            $cl->SetLimits(0, 1000);//===查询结果条数
+            $info = $request->keywords;//===搜索的分词
+            $res = $cl->Query($info, 'shops');//===第二个参数填索引
+//print_r($cl);
+//        print_r($res); //==现在不用打印
+
+            //>>取出查询结果
+            if($res['total']){//total查询的总条数
+                $dates=collect($res['matches'])->pluck('id')->toArray();
+//                var_dump($dates);die;
+                $shops=Users::whereIn('shop_id',$dates)->paginate(4);
+            }else{//条件:无结果 //>>原始查询数据
+
+                session()->flash('danger','没有查询到结果');
+                $shops=User::paginate(4);
+            }
+
+        }else{//执行原有查询
             $shops=User::paginate(4);
+        }
+
+
         return view('shop.index',compact('shops'));
     }
 
